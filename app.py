@@ -1,6 +1,20 @@
 from flask import Flask, render_template, request, redirect, session
-import mysql.connector
 import os
+import mysql.connector
+
+host = os.getenv("MYSQLHOST")
+user = os.getenv("MYSQLUSER")
+password = os.getenv("MYSQLPASSWORD")
+database = os.getenv("MYSQLDATABASE")
+port = int(os.getenv("MYSQLPORT"))
+
+conexion = mysql.connector.connect(
+    host=host,
+    user=user,
+    password=password,
+    database=database,
+    port=port
+)
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
