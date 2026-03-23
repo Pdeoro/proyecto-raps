@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Perfil - RAPS</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <h2 class="logo">RAPS</h2>
+    <button class="hamburger" onclick="toggleMenu()" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
+    <ul class="nav-links">
+        <li><a href="/"><i class="fa-solid fa-house"></i> Inicio</a></li>
+        <li><a href="/recursos"><i class="fa-solid fa-book-open"></i> Recursos</a></li>
+        <li><a href="/tests"><i class="fa-solid fa-clipboard-check"></i> Autoevaluación</a></li>
+        <li><a href="/info"><i class="fa-solid fa-circle-info"></i> Información</a></li>
+        <li><a href="/foro"><i class="fa-solid fa-comments"></i> Foro</a></li>
+        {% if session.user_id %}
+        <li>
+            <a href="/perfil" class="nav-perfil">
+                {% if session.foto and session.foto != 'default.png' %}
+                <img src="/static/uploads/{{ session.foto }}" alt="perfil" class="nav-foto">
+                {% else %}
+                <i class="fa-solid fa-circle-user"></i>
+                {% endif %}
+                {{ session.username }}
+            </a>
+        </li>
+        <li><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</a></li>
+        {% else %}
+        <li><a href="/login"><i class="fa-solid fa-right-to-bracket"></i> Login</a></li>
+        <li><a href="/registro"><i class="fa-solid fa-user-plus"></i> Registro</a></li>
+        {% endif %}
+    </ul>
+</nav>
+
+<div class="perfil-layout">
+
+    <!-- COLUMNA IZQUIERDA -->
+    <div class="perfil-sidebar">
+
+        <div class="perfil-card">
+            <div class="perfil-avatar">
+    {% if usuario.foto and usuario.foto != 'default.png' %}
+    <img src="/static/uploads/{{ usuario.foto }}" alt="Foto de perfil" class="perfil-foto">
+    {% else %}
+    <i class="fa-solid fa-circle-user"></i>
+    {% endif %}
+</div>
+
+<!-- FORMULARIO SUBIR FOTO -->
+<form method="POST" action="/actualizar_foto" enctype="multipart/form-data" class="form-foto">
+    <label for="foto" class="btn-cambiar-foto">
+        <i class="fa-solid fa-camera"></i> Cambiar foto
+    </label>
+    <input type="file" id="foto" name="foto" accept="image/*" style="display:none;" onchange="this.form.submit()">
+</form>
+            <h2>{{ usuario.username }}</h2>
+            <p class="perfil-email">{{ usuario.email }}</p>
+            <div class="perfil-badges">
+                <span class="badge"><i class="fa-solid fa-star"></i> Miembro RAPS</span>
+            </div>
+        </div>
+
+        <div class="perfil-stats">
+            <div class="stat-perfil">
+                <h3>{{ mis_posts|length }}</h3>
+                <p>Publicaciones</p>
+            </div>
+            <div class="stat-perfil">
+                <h3>{{ mis_posts|sum(attribute='total_likes') }}</h3>
+                <p>Apoyos recibidos</p>
+            </div>
+            <div class="stat-perfil">
+                <h3>{{ mis_posts|sum(attribute='total_comentarios') }}</h3>
+                <p>Comentarios</p>
+            </div>
+        </div>
+
+        <div class="sidebar-card">
+            <h3><i class="fa-solid fa-circle-info"></i> Accesos rápidos</h3>
+            <div class="explore-links">
+                <a href="/tests">
+                    <i class="fa-solid fa-clipboard-check"></i> Hacer autoevaluación
+                </a>
+                <a href="/foro">
+                    <i class="fa-solid fa-comments"></i> Ir al foro
+                </a>
+                <a href="/recursos">
+                    <i class="fa-solid fa-book-open"></i> Ver recursos
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- COLUMNA PRINCIPAL -->
+    <div class="perfil-main">
+
+        <div class="perfil-seccion-titulo">
+            <i class="fa-solid fa-newspaper"></i>
+            <h2>Mis publicaciones</h2>
+        </div>
+
+        {% if mis_posts %}
+            {% for post in mis_posts %}
+            <div class="post-card-forum">
+                <div class="post-meta">
+                    <i class="fa-solid fa-circle-user"></i>
+                    <span class="post-author">{{ usuario.username }}</span>
+                    <span class="post-date">· {{ post.created_at }}</span>
+                </div>
+                <div class="post-body">
+                    <p>{{ post.content }}</p>
+                </div>
+                <div class="post-actions">
+                    <span class="btn-accion-disabled">
+                        <i class="fa-solid fa-heart" style="color:#e74c3c;"></i>
+                        {{ post.total_likes }} Apoyos
+                    </span>
+                    <span class="btn-accion-disabled">
+                        <i class="fa-regular fa-comment"></i>
+                        {{ post.total_comentarios }} Comentarios
+                    </span>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="no-posts">
+                <i class="fa-solid fa-pen fa-3x"></i>
+                <p>Aún no has publicado nada.<br>
+                <a href="/foro" style="color:#00c6ff;">¡Comparte tu primera experiencia!</a></p>
+            </div>
+        {% endif %}
+
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2026 RAPS - Proyecto Académico</p>
+</footer>
+
+<script>
+function toggleMenu() {
+    const nav = document.querySelector('.nav-links');
+    nav.classList.toggle('open');
+}
+</script>
+
+</body>
+</html>

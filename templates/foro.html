@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Foro - RAPS</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <h2 class="logo">RAPS</h2>
+    <button class="hamburger" onclick="toggleMenu()" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
+    <ul class="nav-links">
+        <li><a href="/"><i class="fa-solid fa-house"></i> Inicio</a></li>
+        <li><a href="/recursos"><i class="fa-solid fa-book-open"></i> Recursos</a></li>
+        <li><a href="/tests"><i class="fa-solid fa-clipboard-check"></i> Autoevaluación</a></li>
+        <li><a href="/info"><i class="fa-solid fa-circle-info"></i> Información</a></li>
+        <li><a href="/foro"><i class="fa-solid fa-comments"></i> Foro</a></li>
+        {% if session.user_id %}
+        <li>
+            <a href="/perfil" class="nav-perfil">
+                {% if session.foto and session.foto != 'default.png' %}
+                <img src="/static/uploads/{{ session.foto }}" alt="perfil" class="nav-foto">
+                {% else %}
+                <i class="fa-solid fa-circle-user"></i>
+                {% endif %}
+                {{ session.username }}
+            </a>
+        </li>
+        <li><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</a></li>
+        {% else %}
+        <li><a href="/login"><i class="fa-solid fa-right-to-bracket"></i> Login</a></li>
+        <li><a href="/registro"><i class="fa-solid fa-user-plus"></i> Registro</a></li>
+        {% endif %}
+    </ul>
+</nav>
+
+<div class="foro-layout">
+
+    <!-- COLUMNA PRINCIPAL -->
+    <div class="foro-main">
+
+        <div class="foro-header">
+            <h1><i class="fa-solid fa-comments"></i> Foro de Experiencias</h1>
+            <p>Comparte tu historia y apoya a otros en su camino.</p>
+        </div>
+
+        <!-- FORMULARIO PUBLICAR -->
+        {% if session.user_id %}
+        <div class="post-form-card">
+            <div class="post-form-header">
+                <i class="fa-solid fa-circle-user fa-2x"></i>
+                <span>Crear publicación</span>
+            </div>
+            <form method="POST" action="/foro">
+                <textarea name="content" placeholder="¿Qué quieres compartir hoy? Tu experiencia puede ayudar a alguien más..." rows="4"></textarea>
+                <div class="post-form-actions">
+                    <button type="submit" class="btn-post">
+                        <i class="fa-solid fa-paper-plane"></i> Publicar
+                    </button>
+                </div>
+            </form>
+        </div>
+        {% else %}
+        <div class="login-prompt">
+            <i class="fa-solid fa-lock fa-2x"></i>
+            <p>Para publicar en el foro necesitas <a href="/login">iniciar sesión</a> o <a href="/registro">registrarte</a>.</p>
+        </div>
+        {% endif %}
+
+        <!-- PUBLICACIONES -->
+        <div class="posts-list">
+            {% for post in posts %}
+            <div class="post-card-forum">
+                <div class="post-meta">
+                    <i class="fa-solid fa-circle-user"></i>
+                    <span class="post-author">{{ post.username }}</span>
+                    <span class="post-date">· {{ post.created_at }}</span>
+                </div>
+                <div class="post-body">
+                    <p>{{ post.content }}</p>
+                </div>
+                <div class="post-actions">
+
+                    <!-- LIKE -->
+                    {% if session.user_id %}
+                    <form method="POST" action="/like/{{ post.id }}" style="display:inline;">
+                        <button type="submit" class="btn-accion {% if post.user_liked %}liked{% endif %}">
+                            <i class="fa-{% if post.user_liked %}solid{% else %}regular{% endif %} fa-heart"></i>
+                            {{ post.total_likes }} Apoyar
+                        </button>
+                    </form>
+                    {% else %}
+                    <span class="btn-accion-disabled">
+                        <i class="fa-regular fa-heart"></i> {{ post.total_likes }}
+                    </span>
+                    {% endif %}
+
+                    <!-- TOGGLE COMENTARIOS -->
+                    <button class="btn-accion" onclick="toggleComentarios('comentarios-{{ post.id }}')">
+                        <i class="fa-regular fa-comment"></i>
+                        {{ post.comentarios|length }} Comentarios
+                    </button>
+
+                </div>
+
+                <!-- SECCIÓN COMENTARIOS -->
+                <div id="comentarios-{{ post.id }}" class="comentarios-section" style="display:none;">
+
+                    {% for comentario in post.comentarios %}
+                    <div class="comentario">
+                        <i class="fa-solid fa-circle-user"></i>
+                        <div class="comentario-contenido">
+                            <span class="comentario-autor">{{ comentario.username }}</span>
+                            <p>{{ comentario.contenido }}</p>
+                            <small>{{ comentario.created_at }}</small>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    {% if session.user_id %}
+                    <form method="POST" action="/comentar/{{ post.id }}" class="comentario-form">
+                        <input type="text" name="contenido" placeholder="Escribe un comentario..." required>
+                        <button type="submit">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </form>
+                    {% else %}
+                    <p class="comentario-login">
+                        <a href="/login">Inicia sesión</a> para comentar.
+                    </p>
+                    {% endif %}
+
+                </div>
+
+            </div>
+            {% endfor %}
+
+            {% if not posts %}
+            <div class="no-posts">
+                <i class="fa-solid fa-seedling fa-3x"></i>
+                <p>No hay publicaciones aún.<br>¡Sé el primero en compartir!</p>
+            </div>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <!-- COLUMNA LATERAL -->
+    <div class="foro-sidebar">
+        <div class="sidebar-card">
+            <h3><i class="fa-solid fa-shield-heart"></i> Sobre el Foro</h3>
+            <p>Este es un espacio seguro para compartir experiencias, consejos y apoyo mutuo.</p>
+            <hr>
+            <ul>
+                <li><i class="fa-solid fa-check"></i> Sé respetuoso</li>
+                <li><i class="fa-solid fa-check"></i> Comparte con empatía</li>
+                <li><i class="fa-solid fa-check"></i> No hay juicios aquí</li>
+            </ul>
+        </div>
+
+        <div class="sidebar-card">
+            <h3><i class="fa-solid fa-phone"></i> ¿Necesitas ayuda?</h3>
+            <p>Línea de apoyo emocional:</p>
+            <h2 style="color:#2a5298;">106</h2>
+            <p style="font-size:12px;">Disponible 24/7</p>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2026 RAPS - Proyecto Académico</p>
+</footer>
+
+<script>
+function toggleComentarios(id) {
+    const seccion = document.getElementById(id);
+    seccion.style.display = seccion.style.display === "none" ? "block" : "none";
+}
+</script>
+
+<script>
+function toggleMenu() {
+    const nav = document.querySelector('.nav-links');
+    nav.classList.toggle('open');
+}
+</script>
+
+</body>
+</html>

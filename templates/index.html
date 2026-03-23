@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>RAPS - Red de Apoyo Psicosocial</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <h2 class="logo">RAPS</h2>
+    <button class="hamburger" onclick="toggleMenu()" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
+    <ul class="nav-links">
+        <li><a href="/"><i class="fa-solid fa-house"></i> Inicio</a></li>
+        <li><a href="/recursos"><i class="fa-solid fa-book-open"></i> Recursos</a></li>
+        <li><a href="/tests"><i class="fa-solid fa-clipboard-check"></i> Autoevaluación</a></li>
+        <li><a href="/info"><i class="fa-solid fa-circle-info"></i> Información</a></li>
+        <li><a href="/foro"><i class="fa-solid fa-comments"></i> Foro</a></li>
+        {% if session.user_id %}
+        <li>
+            <a href="/perfil" class="nav-perfil">
+                {% if session.foto and session.foto != 'default.png' %}
+                <img src="/static/uploads/{{ session.foto }}" alt="perfil" class="nav-foto">
+                {% else %}
+                <i class="fa-solid fa-circle-user"></i>
+                {% endif %}
+                {{ session.username }}
+            </a>
+        </li>
+        <li><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</a></li>
+        {% else %}
+        <li><a href="/login"><i class="fa-solid fa-right-to-bracket"></i> Login</a></li>
+        <li><a href="/registro"><i class="fa-solid fa-user-plus"></i> Registro</a></li>
+        {% endif %}
+    </ul>
+</nav>
+
+<section class="hero">
+    {% if session.user_id %}
+    <p class="hero-bienvenida">Bienvenido/a de nuevo, <strong>{{ session.username }}</strong> 👋</p>
+    {% endif %}
+    <h1>Red de Apoyo Psicosocial</h1>
+    <p>Conectando personas, brindando apoyo y promoviendo bienestar emocional.</p>
+    <div class="hero-btns">
+        <a href="/recursos" class="btn-primary">Explorar Recursos</a>
+        <a href="/tests" class="btn-secondary">Hacer Autoevaluación</a>
+    </div>
+</section>
+
+<section class="stats-section">
+    <div class="stat-item">
+        <i class="fa-solid fa-users"></i>
+        <h3>+1 de cada 8</h3>
+        <p>personas vive con un trastorno mental en el mundo</p>
+    </div>
+    <div class="stat-item">
+        <i class="fa-solid fa-brain"></i>
+        <h3>Ansiedad</h3>
+        <p>es el trastorno mental más común a nivel global</p>
+    </div>
+    <div class="stat-item">
+        <i class="fa-solid fa-hand-holding-heart"></i>
+        <h3>Ayuda disponible</h3>
+        <p>los trastornos mentales tienen tratamiento efectivo</p>
+    </div>
+    <div class="stat-item">
+        <i class="fa-solid fa-comments"></i>
+        <h3>No estás solo/a</h3>
+        <p>comunidad de apoyo disponible las 24 horas</p>
+    </div>
+</section>
+
+<section class="home-section">
+    <h2 class="home-section-title">¿Qué encontrarás en RAPS?</h2>
+    <div class="cards">
+        <a href="/recursos" class="card card-link">
+            <i class="fa-solid fa-brain icon"></i>
+            <h3>Psicoeducación</h3>
+            <p>Videos y guías para mejorar habilidades sociales y manejo emocional.</p>
+            <span class="card-link-btn">Ver recursos <i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+        <a href="/info" class="card card-link">
+            <i class="fa-solid fa-book-medical icon"></i>
+            <h3>Información</h3>
+            <p>Aprende sobre ansiedad, depresión, soledad y habilidades sociales.</p>
+            <span class="card-link-btn">Leer más <i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+        <a href="/tests" class="card card-link">
+            <i class="fa-solid fa-clipboard-check icon"></i>
+            <h3>Autoevaluación</h3>
+            <p>Responde un test orientativo sobre tu bienestar emocional.</p>
+            <span class="card-link-btn">Hacer test <i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+        <a href="/foro" class="card card-link">
+            <i class="fa-solid fa-comments icon"></i>
+            <h3>Foro</h3>
+            <p>Comparte tu experiencia y apoya a otros en su camino.</p>
+            <span class="card-link-btn">Ir al foro <i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+    </div>
+</section>
+
+<section class="como-funciona">
+    <h2 class="home-section-title">¿Cómo funciona RAPS?</h2>
+    <div class="pasos">
+        <div class="paso">
+            <div class="paso-num">1</div>
+            <i class="fa-solid fa-user-plus fa-2x"></i>
+            <h3>Regístrate</h3>
+            <p>Crea tu cuenta de forma gratuita y accede a todos los recursos.</p>
+        </div>
+        <div class="paso-flecha"><i class="fa-solid fa-arrow-right"></i></div>
+        <div class="paso">
+            <div class="paso-num">2</div>
+            <i class="fa-solid fa-clipboard-check fa-2x"></i>
+            <h3>Evalúate</h3>
+            <p>Realiza la autoevaluación para conocer tu estado emocional.</p>
+        </div>
+        <div class="paso-flecha"><i class="fa-solid fa-arrow-right"></i></div>
+        <div class="paso">
+            <div class="paso-num">3</div>
+            <i class="fa-solid fa-book-open fa-2x"></i>
+            <h3>Explora</h3>
+            <p>Accede a recursos, videos y guías psicoeducativas.</p>
+        </div>
+        <div class="paso-flecha"><i class="fa-solid fa-arrow-right"></i></div>
+        <div class="paso">
+            <div class="paso-num">4</div>
+            <i class="fa-solid fa-people-group fa-2x"></i>
+            <h3>Conecta</h3>
+            <p>Únete al foro y comparte con personas que entienden lo que sientes.</p>
+        </div>
+    </div>
+</section>
+
+<section class="reto-section">
+    <h2 class="home-section-title">🎯 Reto del Día</h2>
+    <div class="reto-box">
+        <div class="reto-icono">
+            <i class="fa-solid fa-fire"></i>
+        </div>
+        <div class="reto-contenido">
+            <span class="reto-categoria" id="retoCategoria">Cargando...</span>
+            <h3 id="retoTitulo">Cargando reto...</h3>
+            <p id="retoDescripcion">Por favor espera un momento.</p>
+        </div>
+        <div class="reto-acciones">
+            <button class="btn-reto-completado" onclick="completarReto()">
+                <i class="fa-solid fa-check"></i> Lo hice hoy
+            </button>
+            <button class="btn-reto-nuevo" onclick="nuevoReto()">
+                <i class="fa-solid fa-shuffle"></i> Otro reto
+            </button>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class="cta-box">
+        <i class="fa-solid fa-phone fa-2x"></i>
+        <h2>¿Necesitas ayuda ahora?</h2>
+        <p>Línea de apoyo emocional gratuita disponible las 24 horas</p>
+        <span class="cta-num">106</span>
+        <a href="/recursos" class="btn-primary">Ver más recursos de ayuda</a>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 RAPS - Red de Apoyo Psicosocial · Proyecto Académico</p>
+</footer>
+
+<script>
+const retos = [
+    { categoria: "Socialización", titulo: "Saluda a alguien nuevo", descripcion: "Hoy intenta saludar a una persona que no conoces bien. Puede ser un compañero, vecino o cualquier persona cercana.", icono: "👋" },
+    { categoria: "Bienestar", titulo: "5 minutos de respiración", descripcion: "Tómate 5 minutos para respirar profundo. Inhala 4 segundos, sostén 4 segundos, exhala 4 segundos.", icono: "🧘" },
+    { categoria: "Socialización", titulo: "Escribe un mensaje a alguien", descripcion: "Envía un mensaje a una persona con quien no has hablado en un tiempo. Puede ser solo un '¿Cómo estás?'", icono: "💬" },
+    { categoria: "Bienestar", titulo: "Sal a caminar 10 minutos", descripcion: "El movimiento físico mejora el estado de ánimo. Sal a caminar aunque sea 10 minutos hoy.", icono: "🚶" },
+    { categoria: "Autoestima", titulo: "Escribe 3 cosas buenas de ti", descripcion: "Anota en papel 3 cualidades o logros que valoras de ti mismo/a. Sin importar qué tan pequeños sean.", icono: "✍️" },
+    { categoria: "Socialización", titulo: "Participa en el foro", descripcion: "Comparte algo en el foro de RAPS. Tu experiencia puede ayudar a alguien más.", icono: "🗣️" },
+    { categoria: "Bienestar", titulo: "Desconéctate 30 minutos", descripcion: "Apaga el celular o redes sociales por 30 minutos y dedica ese tiempo a algo que disfrutes.", icono: "📵" },
+    { categoria: "Autoestima", titulo: "Haz algo que te dé miedo", descripcion: "Elige una pequeña acción que evitas por miedo y hazla hoy. El valor se construye con la práctica.", icono: "💪" },
+    { categoria: "Bienestar", titulo: "Escucha música que te guste", descripcion: "Dedica 15 minutos a escuchar tu música favorita sin hacer nada más. Permítete disfrutarlo.", icono: "🎵" },
+    { categoria: "Socialización", titulo: "Da un cumplido sincero", descripcion: "Dile algo positivo y sincero a alguien hoy. Un cumplido genuino puede cambiar el día de una persona.", icono: "🌟" },
+    { categoria: "Bienestar", titulo: "Bebe suficiente agua", descripcion: "Hoy asegúrate de tomar al menos 8 vasos de agua. La hidratación afecta directamente tu estado de ánimo.", icono: "💧" },
+    { categoria: "Autoestima", titulo: "Celebra un logro pequeño", descripcion: "Piensa en algo que hayas hecho bien esta semana, por pequeño que sea, y felicítate por ello.", icono: "🎉" },
+];
+
+function obtenerRetoDelDia() {
+    const hoy = new Date();
+    const diaDelAno = Math.floor((hoy - new Date(hoy.getFullYear(), 0, 0)) / 86400000);
+    return retos[diaDelAno % retos.length];
+}
+
+function mostrarReto(reto) {
+    document.getElementById("retoCategoria").textContent = reto.icono + " " + reto.categoria;
+    document.getElementById("retoTitulo").textContent = reto.titulo;
+    document.getElementById("retoDescripcion").textContent = reto.descripcion;
+}
+
+let retoActual = obtenerRetoDelDia();
+mostrarReto(retoActual);
+
+function nuevoReto() {
+    let indiceActual = retos.indexOf(retoActual);
+    let nuevoIndice = (indiceActual + 1) % retos.length;
+    retoActual = retos[nuevoIndice];
+    mostrarReto(retoActual);
+}
+
+function completarReto() {
+    const btn = document.querySelector(".btn-reto-completado");
+    btn.style.background = "#27ae60";
+    btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> ¡Completado!';
+}
+</script>
+
+<script>
+function toggleMenu() {
+    const nav = document.querySelector('.nav-links');
+    nav.classList.toggle('open');
+}
+</script>
+
+</body>
+</html>

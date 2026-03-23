@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Recursos - RAPS</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+   <nav class="navbar">
+    <h2 class="logo">RAPS</h2>
+    <button class="hamburger" onclick="toggleMenu()" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
+    <ul class="nav-links">
+        <li><a href="/"><i class="fa-solid fa-house"></i> Inicio</a></li>
+        <li><a href="/recursos"><i class="fa-solid fa-book-open"></i> Recursos</a></li>
+        <li><a href="/tests"><i class="fa-solid fa-clipboard-check"></i> Autoevaluación</a></li>
+        <li><a href="/info"><i class="fa-solid fa-circle-info"></i> Información</a></li>
+        <li><a href="/foro"><i class="fa-solid fa-comments"></i> Foro</a></li>
+        {% if session.user_id %}
+        <li>
+            <a href="/perfil" class="nav-perfil">
+                {% if session.foto and session.foto != 'default.png' %}
+                <img src="/static/uploads/{{ session.foto }}" alt="perfil" class="nav-foto">
+                {% else %}
+                <i class="fa-solid fa-circle-user"></i>
+                {% endif %}
+                {{ session.username }}
+            </a>
+        </li>
+        <li><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</a></li>
+        {% else %}
+        <li><a href="/login"><i class="fa-solid fa-right-to-bracket"></i> Login</a></li>
+        <li><a href="/registro"><i class="fa-solid fa-user-plus"></i> Registro</a></li>
+        {% endif %}
+    </ul>
+</nav>
+
+<section class="hero">
+    <h1><i class="fa-solid fa-book-open"></i> Recursos Psicoeducativos</h1>
+    <p>Videos y materiales para apoyar tu bienestar emocional y social.</p>
+</section>
+
+<div class="recursos-layout">
+
+    <!-- VIDEOS -->
+    <div class="recursos-section">
+        <h2 class="section-title"><i class="fa-solid fa-video"></i> Videos de Apoyo</h2>
+
+        <div class="videos-grid">
+
+            <div class="video-card">
+                <iframe src="https://www.youtube.com/embed/l8dL_lXhR8w"
+                    title="Manejo de la ansiedad" allowfullscreen>
+                </iframe>
+                <div class="video-info">
+                    <span class="video-tag ansiedad">Ansiedad</span>
+                    <h3>Manejo de la ansiedad</h3>
+                    <p>Aprende técnicas prácticas para controlar la ansiedad en tu vida diaria.</p>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <iframe src="https://www.youtube.com/embed/gEaadjSca28"
+                    title="Ansiedad social" allowfullscreen>
+                </iframe>
+                <div class="video-info">
+                    <span class="video-tag social">Ansiedad Social</span>
+                    <h3>¿Qué es la ansiedad social?</h3>
+                    <p>Entiende qué es la ansiedad social y cómo afecta las relaciones interpersonales.</p>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <iframe src="https://www.youtube.com/embed/XXQQutEaaV8"
+                    title="Depresión" allowfullscreen>
+                </iframe>
+                <div class="video-info">
+                    <span class="video-tag depresion">Depresión</span>
+                    <h3>Entendiendo la depresión</h3>
+                    <p>Información clave sobre la depresión, sus síntomas y cómo buscar ayuda.</p>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <iframe src="https://www.youtube.com/embed/69L26NGYpLA"
+                    title="Soledad" allowfullscreen>
+                </iframe>
+                <div class="video-info">
+                    <span class="video-tag soledad">Soledad</span>
+                    <h3>Cómo manejar la soledad</h3>
+                    <p>Estrategias para afrontar la soledad y construir conexiones significativas.</p>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <iframe src="https://www.youtube.com/embed/tYwnSBkc_To"
+                    title="Meditación" allowfullscreen>
+                </iframe>
+                <div class="video-info">
+                    <span class="video-tag mindfulness">Relajación</span>
+                    <h3>Meditación</h3>
+                    <p>Técnicas de meditación para reducir el estrés y mejorar el bienestar.</p>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <iframe src="https://www.youtube.com/embed/I5aM98n985c"
+                    title="Habilidades sociales" allowfullscreen>
+                </iframe>
+                <div class="video-info">
+                    <span class="video-tag social">Habilidades Sociales</span>
+                    <h3>Mejora tus habilidades sociales</h3>
+                    <p>Consejos prácticos para desarrollar mejores habilidades de comunicación.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- AYUDA PROFESIONAL -->
+    <div class="recursos-section">
+        <h2 class="section-title"><i class="fa-solid fa-hand-holding-heart"></i> Ayuda Profesional</h2>
+
+        <div class="ayuda-grid">
+
+            <a href="https://www.doctoralia.co/psicologo" target="_blank" class="ayuda-card">
+                <i class="fa-solid fa-user-doctor"></i>
+                <h3>Doctoralia</h3>
+                <p>Encuentra psicólogos y especialistas en salud mental en Colombia.</p>
+                <span class="ayuda-link">Visitar <i class="fa-solid fa-arrow-right"></i></span>
+            </a>
+
+            <a href="https://www.minsalud.gov.co/salud/publica/SMental/Paginas/salud-mental.aspx" target="_blank" class="ayuda-card">
+                <i class="fa-solid fa-hospital"></i>
+                <h3>Ministerio de Salud</h3>
+                <p>Recursos oficiales sobre salud mental en Colombia.</p>
+                <span class="ayuda-link">Visitar <i class="fa-solid fa-arrow-right"></i></span>
+            </a>
+
+            <a href="https://www.who.int/es/health-topics/mental-health" target="_blank" class="ayuda-card">
+                <i class="fa-solid fa-earth-americas"></i>
+                <h3>OMS - Salud Mental</h3>
+                <p>Información oficial de la Organización Mundial de la Salud.</p>
+                <span class="ayuda-link">Visitar <i class="fa-solid fa-arrow-right"></i></span>
+            </a>
+
+            <a href="https://www.icbf.gov.co" target="_blank" class="ayuda-card">
+                <i class="fa-solid fa-children"></i>
+                <h3>ICBF</h3>
+                <p>Instituto Colombiano de Bienestar Familiar, apoyo psicosocial.</p>
+                <span class="ayuda-link">Visitar <i class="fa-solid fa-arrow-right"></i></span>
+            </a>
+
+            <div class="ayuda-card linea">
+                <i class="fa-solid fa-phone"></i>
+                <h3>Línea 106</h3>
+                <p>Línea gratuita de apoyo emocional disponible las 24 horas del día.</p>
+                <span class="ayuda-tag">📞 Gratuita · 24/7</span>
+            </div>
+
+            <div class="ayuda-card linea">
+                <i class="fa-solid fa-comment-medical"></i>
+                <h3>Línea 192</h3>
+                <p>Línea del Ministerio de Salud para orientación en salud mental.</p>
+                <span class="ayuda-tag">📞 Gratuita · Colombia</span>
+            </div>
+
+            <a href="https://www.psicologosencolombia.com" target="_blank" class="ayuda-card">
+                <i class="fa-solid fa-brain"></i>
+                <h3>Psicólogos en Colombia</h3>
+                <p>Directorio de profesionales de psicología en todo el país.</p>
+                <span class="ayuda-link">Visitar <i class="fa-solid fa-arrow-right"></i></span>
+            </a>
+
+            <a href="https://apps.who.int/iris/handle/10665/274019" target="_blank" class="ayuda-card">
+                <i class="fa-solid fa-book-medical"></i>
+                <h3>Guía de Primeros Auxilios Psicológicos</h3>
+                <p>Guía oficial de la OMS para brindar apoyo emocional inicial.</p>
+                <span class="ayuda-link">Visitar <i class="fa-solid fa-arrow-right"></i></span>
+            </a>
+
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2026 RAPS - Proyecto Académico</p>
+</footer>
+
+<script>
+function toggleMenu() {
+    const nav = document.querySelector('.nav-links');
+    nav.classList.toggle('open');
+}
+</script>
+
+</body>
+</html>

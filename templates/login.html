@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - RAPS</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="auth-body">
+
+<div class="auth-container">
+
+    <!-- PANEL IZQUIERDO -->
+    <div class="auth-panel-left">
+        <div class="auth-panel-content">
+            <h1 class="auth-logo">RAPS</h1>
+            <h2>Bienvenido/a de nuevo</h2>
+            <p>Nos alegra verte otra vez. Inicia sesión para acceder a tu espacio de apoyo emocional.</p>
+            <div class="auth-features">
+                <div class="auth-feature">
+                    <i class="fa-solid fa-heart"></i>
+                    <span>Apoyo emocional</span>
+                </div>
+                <div class="auth-feature">
+                    <i class="fa-solid fa-comments"></i>
+                    <span>Foro de experiencias</span>
+                </div>
+                <div class="auth-feature">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span>Recursos psicoeducativos</span>
+                </div>
+                <div class="auth-feature">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                    <span>Autoevaluación emocional</span>
+                </div>
+            </div>
+        </div>
+        <div class="auth-circles">
+            <div class="circle c1"></div>
+            <div class="circle c2"></div>
+            <div class="circle c3"></div>
+        </div>
+    </div>
+
+    <!-- PANEL DERECHO -->
+    <div class="auth-panel-right">
+        <div class="auth-glass-card">
+            <h2>Iniciar Sesión</h2>
+            <p class="auth-subtitle">Ingresa tus credenciales para continuar</p>
+
+            <form method="POST" action="/login">
+
+                <div class="auth-input-group">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" name="email" placeholder="Correo electrónico" required>
+                </div>
+
+                <div class="auth-input-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" name="password" placeholder="Contraseña" required>
+                </div>
+
+                {% if error %}
+                <div class="auth-error">
+                    <i class="fa-solid fa-circle-exclamation"></i> {{ error }}
+                </div>
+                {% endif %}
+
+                <button type="submit" class="auth-btn">
+                    Iniciar Sesión <i class="fa-solid fa-arrow-right"></i>
+                </button>
+
+            </form>
+
+            <div class="auth-divider">
+                <span>¿No tienes cuenta?</span>
+            </div>
+
+            <a href="/registro" class="auth-btn-outline">
+                Crear cuenta gratis
+            </a>
+
+            <a href="/" class="auth-back">
+                <i class="fa-solid fa-arrow-left"></i> Volver al inicio
+            </a>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+function toggleMenu() {
+    const nav = document.querySelector('.nav-links');
+    nav.classList.toggle('open');
+}
+</script>
+
+</body>
+</html>

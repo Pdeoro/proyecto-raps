@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Autoevaluación - RAPS</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <h2 class="logo">RAPS</h2>
+    <button class="hamburger" onclick="toggleMenu()" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
+    <ul class="nav-links">
+        <li><a href="/"><i class="fa-solid fa-house"></i> Inicio</a></li>
+        <li><a href="/recursos"><i class="fa-solid fa-book-open"></i> Recursos</a></li>
+        <li><a href="/tests"><i class="fa-solid fa-clipboard-check"></i> Autoevaluación</a></li>
+        <li><a href="/info"><i class="fa-solid fa-circle-info"></i> Información</a></li>
+        <li><a href="/foro"><i class="fa-solid fa-comments"></i> Foro</a></li>
+        {% if session.user_id %}
+        <li>
+            <a href="/perfil" class="nav-perfil">
+                {% if session.foto and session.foto != 'default.png' %}
+                <img src="/static/uploads/{{ session.foto }}" alt="perfil" class="nav-foto">
+                {% else %}
+                <i class="fa-solid fa-circle-user"></i>
+                {% endif %}
+                {{ session.username }}
+            </a>
+        </li>
+        <li><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</a></li>
+        {% else %}
+        <li><a href="/login"><i class="fa-solid fa-right-to-bracket"></i> Login</a></li>
+        <li><a href="/registro"><i class="fa-solid fa-user-plus"></i> Registro</a></li>
+        {% endif %}
+    </ul>
+</nav>
+
+<section class="hero">
+    <h1><i class="fa-solid fa-clipboard-check"></i> Autoevaluación Emocional</h1>
+    <p>Responde con sinceridad. Este test es orientativo y no reemplaza una evaluación profesional.</p>
+</section>
+
+<div class="test-layout">
+
+    <div class="test-card">
+
+        <div class="test-header">
+            <i class="fa-solid fa-brain fa-2x" style="color:#2a5298;"></i>
+            <div>
+                <h2>¿Cómo te has sentido últimamente?</h2>
+                <p>13 preguntas · 2 minutos aproximadamente</p>
+            </div>
+        </div>
+
+        <form id="testForm">
+
+    <!-- BLOQUE: ANSIEDAD -->
+    <div class="bloque-titulo">
+        <i class="fa-solid fa-bolt"></i> Ansiedad y Estrés
+    </div>
+
+    <div class="pregunta">
+        <p><span class="num">1</span> ¿Te sientes abrumado/a frecuentemente?</p>
+        <div class="opciones">
+            <label><input type="radio" name="q1" value="0" required> Nunca</label>
+            <label><input type="radio" name="q1" value="1"> A veces</label>
+            <label><input type="radio" name="q1" value="2"> Frecuentemente</label>
+            <label><input type="radio" name="q1" value="3"> Siempre</label>
+        </div>
+    </div>
+
+    <div class="pregunta">
+        <p><span class="num">2</span> ¿Tienes dificultad para relajarte?</p>
+        <div class="opciones">
+            <label><input type="radio" name="q2" value="0" required> Nunca</label>
+            <label><input type="radio" name="q2" value="1"> A veces</label>
+            <label><input type="radio" name="q2" value="2"> Frecuentemente</label>
+            <label><input type="radio" name="q2" value="3"> Siempre</label>
+        </div>
+    </div>
+
+    <div class="pregunta">
+        <p><span class="num">3</span> ¿Sientes tensión física como dolor de cabeza o muscular por el estrés?</p>
+        <div class="opciones">
+            <label><input type="radio" name="q3" value="0" required> Nunca</label>
+            <label><input type="radio" name="q3" value="1"> A veces</label>
+            <label><input type="radio" name="q3" value="2"> Frecuentemente</label>
+            <label><input type="radio" name="q3" value="3"> Siempre</label>
+        </div>
+    </div>
+
+    <div class="pregunta">
+        <p><span class="num">4</span> ¿Qué situaciones te generan más ansiedad o estrés en tu día a día?</p>
+        <textarea name="texto1" class="input-texto" placeholder="Escribe aquí tu respuesta..." rows="3"></textarea>
+    </div>
+
+    <!-- BLOQUE: SOCIALIZACIÓN -->
+    <div class="bloque-titulo">
+        <i class="fa-solid fa-people-group"></i> Socialización
+    </div>
+
+    <div class="pregunta">
+        <p><span class="num">5</span> ¿Te cuesta socializar en nuevos entornos?</p>
+        <div class="opciones">
+            <label><input type="radio" name="q5" value="0" required> Nunca</label>
+            <label><input type="radio" name="q5" value="1"> A veces</label>
+            <label><input type="radio" name="q5" value="2"> Frecuentemente</label>
+            <label><input type="radio" name="q5" value="3"> Siempre</label>
+        </div>
+    </div>
+
+    <div class="pregunta">
+        <p><span class="num">6</span> ¿Evitas situaciones sociales como reuniones o eventos?</p>
+        <div class="opciones">
+            <label><input type="radio" name="q6" value="0" required> Nunca</label>
+            <label><input type="radio" name="q6" value="1"> A veces</label>
+            <label><input type="radio" name="q6" value="2"> Frecuentemente</label>
+            <label><input type="radio" name="q6" value="3"> Siempre</label>
+        </div>
+    </div>
+
+    <div class="pregunta">
+        <p><span class="num">7</span> ¿Sientes que los demás te juzgan constantemente?</p>
+        <div class="opciones">
+            <label><input type="radio" name="q7" value="0" required> Nunca</label>
+            <label><input type="radio" name="q7" value="1"> A veces</label>
+            <label><input type="radio" name="q7" value="2"> Frecuentemente</label>
+            <label><input type="radio" name="q7" value="3"> Siempre</label>
+        </div>
+    </div>
+
+    <div class="pregunta">
+        <p><span class="num">8</span> ¿Tienes dificultad para iniciar o mantener conversaciones?</p>
+        <div class="opciones">
+            <label><input type="radio" name="q8" value="0" required> Nunca</label>
+            <label><input type="radio" name="q8" value="1"> A veces</label>
+            <label><input type="radio" name="q8" value="2"> Frecuentemente</label>
+            <label><input type="radio" name="q8" value="3"> Siempre</label>
+        </div>
+    </div>
+
+    <!-- BLOQUE: SOLEDAD Y ESTADO EMOCIONAL -->
+    <div class="bloque-titulo">
+        <i class="fa-solid fa-heart"></i> Estado Emocional
+    </div>
+
+    <div class="pregunta">
+        <p><span class="num">9</span> ¿Te sientes solo/a a menudo?</p>
+        <div class="opciones">
+            <label><input type="radio" name="q9" value="0" required> Nunca</label>
+            <label><input type="radio" name="q9" value="1"> A veces</label>
+            <label><input type="radio" name="q9" value="2"> Frecuentemente</label>
+            <label><input type="radio" name="q9" value="3"> Siempre</label>
+        </div>
+    </div>
+
+    <div class="pregunta">
+        <p><span class="num">10</span> ¿Sientes que nadie te entiende realmente?</p>
+        <div class="opciones">
+            <label><input type="radio" name="q10" value="0" required> Nunca</label>
+            <label><input type="radio" name="q10" value="1"> A veces</label>
+            <label><input type="radio" name="q10" value="2"> Frecuentemente</label>
+            <label><input type="radio" name="q10" value="3"> Siempre</label>
+        </div>
+    </div>
+
+    <div class="pregunta">
+        <p><span class="num">11</span> ¿Has perdido interés en actividades que antes disfrutabas?</p>
+        <div class="opciones">
+            <label><input type="radio" name="q11" value="0" required> Nunca</label>
+            <label><input type="radio" name="q11" value="1"> A veces</label>
+            <label><input type="radio" name="q11" value="2"> Frecuentemente</label>
+            <label><input type="radio" name="q11" value="3"> Siempre</label>
+        </div>
+    </div>
+
+    <div class="pregunta">
+        <p><span class="num">12</span> ¿Tienes pensamientos negativos frecuentes sobre ti mismo/a?</p>
+        <div class="opciones">
+            <label><input type="radio" name="q12" value="0" required> Nunca</label>
+            <label><input type="radio" name="q12" value="1"> A veces</label>
+            <label><input type="radio" name="q12" value="2"> Frecuentemente</label>
+            <label><input type="radio" name="q12" value="3"> Siempre</label>
+        </div>
+    </div>
+
+    <div class="pregunta">
+        <p><span class="num">13</span> ¿Cómo describirías tu estado emocional general en las últimas semanas?</p>
+        <textarea name="texto2" class="input-texto" placeholder="Escribe aquí cómo te has sentido..." rows="3"></textarea>
+    </div>
+
+    <button type="button" class="btn-test" onclick="calcularResultado()">
+        <i class="fa-solid fa-magnifying-glass"></i> Ver mi resultado
+    </button>
+
+</form>
+
+        <div id="resultado" class="resultado-box" style="display:none;"></div>
+
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="test-sidebar">
+        <div class="sidebar-card">
+            <h3><i class="fa-solid fa-circle-info"></i> Importante</h3>
+            <p>Este test es solo orientativo y no constituye un diagnóstico clínico.</p>
+            <p style="margin-top:10px;">Si los resultados te preocupan, te recomendamos consultar con un profesional.</p>
+        </div>
+
+        <div class="sidebar-card">
+            <h3><i class="fa-solid fa-phone"></i> ¿Necesitas ayuda?</h3>
+            <p>Línea de apoyo emocional gratuita:</p>
+            <h2 style="color:#2a5298; font-size:32px;">106</h2>
+            <p style="font-size:12px; color:#888;">Disponible 24/7 en Colombia</p>
+        </div>
+
+        <div class="sidebar-card">
+            <h3><i class="fa-solid fa-lightbulb"></i> Recuerda</h3>
+            <ul style="padding-left:15px; color:#555; font-size:14px; line-height:2;">
+                <li>Pedir ayuda es valentía</li>
+                <li>No estás solo/a</li>
+                <li>Mejorar es posible</li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2026 RAPS - Proyecto Académico</p>
+</footer>
+
+<script>
+function calcularResultado() {
+    let form = document.getElementById("testForm");
+    let total = 0;
+    let completo = true;
+    let totalPreguntas = 12;
+
+    for (let i = 1; i <= totalPreguntas; i++) {
+        if (i === 4 || i === 13) continue;
+        let opciones = form.querySelectorAll(`input[name="q${i}"]:checked`);
+        if (opciones.length === 0) {
+            completo = false;
+            break;
+        }
+        total += parseInt(opciones[0].value);
+    }
+
+    if (!completo) {
+        alert("Por favor responde todas las preguntas antes de continuar.");
+        return;
+    }
+
+    let resultado = document.getElementById("resultado");
+    resultado.style.display = "block";
+
+    if (total <= 10) {
+        resultado.innerHTML = `
+            <div class="resultado-nivel verde">
+                <i class="fa-solid fa-circle-check fa-2x"></i>
+                <h3>Nivel bajo 😊</h3>
+                <p>Tu bienestar emocional parece estar en buen estado. Sigue manteniendo hábitos saludables y conexiones sociales positivas.</p>
+            </div>`;
+    } else if (total <= 22) {
+        resultado.innerHTML = `
+            <div class="resultado-nivel amarillo">
+                <i class="fa-solid fa-triangle-exclamation fa-2x"></i>
+                <h3>Nivel moderado ⚠️</h3>
+                <p>Estás experimentando algunas dificultades emocionales o sociales. Te recomendamos explorar nuestros recursos y considerar hablar con alguien de confianza.</p>
+                <a href="/recursos" class="btn-resultado">Ver recursos</a>
+            </div>`;
+    } else {
+        resultado.innerHTML = `
+            <div class="resultado-nivel rojo">
+                <i class="fa-solid fa-circle-exclamation fa-2x"></i>
+                <h3>Nivel alto 🔴</h3>
+                <p>Pareces estar atravesando un momento difícil. Te recomendamos buscar apoyo profesional. No estás solo/a.</p>
+                <a href="/recursos" class="btn-resultado">Buscar ayuda profesional</a>
+            </div>`;
+    }
+
+    resultado.scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+
+<script>
+function toggleMenu() {
+    const nav = document.querySelector('.nav-links');
+    nav.classList.toggle('open');
+}
+</script>
+
+</body>
+</html>

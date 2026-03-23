@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro - RAPS</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="auth-body">
+
+<div class="auth-container">
+
+    <!-- PANEL IZQUIERDO -->
+    <div class="auth-panel-left">
+        <div class="auth-panel-content">
+            <h1 class="auth-logo">RAPS</h1>
+            <h2>Únete a RAPS</h2>
+            <p>Crea tu cuenta gratuita y accede a todos los recursos de apoyo psicosocial.</p>
+            <div class="auth-features">
+                <div class="auth-feature">
+                    <i class="fa-solid fa-user-shield"></i>
+                    <span>Perfil seguro y privado</span>
+                </div>
+                <div class="auth-feature">
+                    <i class="fa-solid fa-people-group"></i>
+                    <span>Comunidad de apoyo</span>
+                </div>
+                <div class="auth-feature">
+                    <i class="fa-solid fa-video"></i>
+                    <span>Videos y guías exclusivas</span>
+                </div>
+                <div class="auth-feature">
+                    <i class="fa-solid fa-fire"></i>
+                    <span>Retos diarios de bienestar</span>
+                </div>
+            </div>
+        </div>
+        <div class="auth-circles">
+            <div class="circle c1"></div>
+            <div class="circle c2"></div>
+            <div class="circle c3"></div>
+        </div>
+    </div>
+
+    <!-- PANEL DERECHO -->
+    <div class="auth-panel-right">
+        <div class="auth-glass-card">
+            <h2>Crear Cuenta</h2>
+            <p class="auth-subtitle">Completa el formulario para comenzar</p>
+
+            <form method="POST" action="/registro">
+
+                <div class="auth-input-group">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" name="username" placeholder="Nombre de usuario" required>
+                </div>
+
+                <div class="auth-input-group">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" name="email" placeholder="Correo electrónico" required>
+                </div>
+
+                <div class="auth-input-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" name="password" placeholder="Contraseña" required>
+                </div>
+
+                <button type="submit" class="auth-btn">
+                    Crear cuenta <i class="fa-solid fa-arrow-right"></i>
+                </button>
+
+            </form>
+
+            <div class="auth-divider">
+                <span>¿Ya tienes cuenta?</span>
+            </div>
+
+            <a href="/login" class="auth-btn-outline">
+                Iniciar sesión
+            </a>
+
+            <a href="/" class="auth-back">
+                <i class="fa-solid fa-arrow-left"></i> Volver al inicio
+            </a>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+function toggleMenu() {
+    const nav = document.querySelector('.nav-links');
+    nav.classList.toggle('open');
+}
+</script>
+
+</body>
+</html>

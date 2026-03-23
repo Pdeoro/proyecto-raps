@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Información - RAPS</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <h2 class="logo">RAPS</h2>
+    <button class="hamburger" onclick="toggleMenu()" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
+    <ul class="nav-links">
+        <li><a href="/"><i class="fa-solid fa-house"></i> Inicio</a></li>
+        <li><a href="/recursos"><i class="fa-solid fa-book-open"></i> Recursos</a></li>
+        <li><a href="/tests"><i class="fa-solid fa-clipboard-check"></i> Autoevaluación</a></li>
+        <li><a href="/info"><i class="fa-solid fa-circle-info"></i> Información</a></li>
+        <li><a href="/foro"><i class="fa-solid fa-comments"></i> Foro</a></li>
+        {% if session.user_id %}
+        <li>
+            <a href="/perfil" class="nav-perfil">
+                {% if session.foto and session.foto != 'default.png' %}
+                <img src="/static/uploads/{{ session.foto }}" alt="perfil" class="nav-foto">
+                {% else %}
+                <i class="fa-solid fa-circle-user"></i>
+                {% endif %}
+                {{ session.username }}
+            </a>
+        </li>
+        <li><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</a></li>
+        {% else %}
+        <li><a href="/login"><i class="fa-solid fa-right-to-bracket"></i> Login</a></li>
+        <li><a href="/registro"><i class="fa-solid fa-user-plus"></i> Registro</a></li>
+        {% endif %}
+    </ul>
+</nav>
+
+<section class="hero">
+    <h1><i class="fa-solid fa-book-medical"></i> Información Psicoeducativa</h1>
+    <p>Conoce más sobre ansiedad, depresión, soledad y habilidades sociales.</p>
+</section>
+
+<div class="info-layout">
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="info-main">
+
+        <!-- ANSIEDAD -->
+        <div class="info-card-full">
+            <div class="info-card-header ansiedad-color">
+                <i class="fa-solid fa-bolt fa-2x"></i>
+                <div>
+                    <h2>Ansiedad</h2>
+                    <p>Trastorno emocional y físico</p>
+                </div>
+            </div>
+            <div class="info-card-body">
+                <p>La ansiedad es una respuesta natural ante situaciones de estrés. Sin embargo, cuando es intensa, persistente y desproporcionada, puede convertirse en un trastorno que afecta significativamente la vida diaria.</p>
+
+                <h4><i class="fa-solid fa-list-check"></i> Síntomas comunes</h4>
+                <div class="sintomas-grid">
+                    <span class="sintoma"><i class="fa-solid fa-circle-dot"></i> Preocupación excesiva</span>
+                    <span class="sintoma"><i class="fa-solid fa-circle-dot"></i> Tensión constante</span>
+                    <span class="sintoma"><i class="fa-solid fa-circle-dot"></i> Dificultad para concentrarse</span>
+                    <span class="sintoma"><i class="fa-solid fa-circle-dot"></i> Alteraciones del sueño</span>
+                    <span class="sintoma"><i class="fa-solid fa-circle-dot"></i> Palpitaciones</span>
+                    <span class="sintoma"><i class="fa-solid fa-circle-dot"></i> Sudoración excesiva</span>
+                </div>
+
+                <h4><i class="fa-solid fa-lightbulb"></i> ¿Qué puedes hacer?</h4>
+                <p>Técnicas de respiración, mindfulness, ejercicio regular y buscar apoyo profesional son estrategias efectivas para manejar la ansiedad.</p>
+
+                <div class="fuente-link">
+                    <i class="fa-solid fa-link"></i>
+                    <a href="https://www.who.int/es/news-room/fact-sheets/detail/mental-disorders" target="_blank">OMS (2023) — Trastornos mentales</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ANSIEDAD SOCIAL -->
+        <div class="info-card-full">
+            <div class="info-card-header social-color">
+                <i class="fa-solid fa-people-arrows fa-2x"></i>
+                <div>
+                    <h2>Ansiedad Social</h2>
+                    <p>Miedo intenso a situaciones sociales</p>
+                </div>
+            </div>
+            <div class="info-card-body">
+                <p>La ansiedad social implica un miedo intenso y persistente a situaciones donde la persona puede sentirse evaluada, juzgada o humillada por otros. Va más allá de la timidez normal.</p>
+
+                <h4><i class="fa-solid fa-list-check"></i> Síntomas comunes</h4>
+                <div class="sintomas-grid">
+                    <span class="sintoma"><i class="fa-solid fa-circle-dot"></i> Miedo a hablar en público</span>
+                    <span class="sintoma"><i class="fa-solid fa-circle-dot"></i> Evitar reuniones sociales</span>
+                    <span class="sintoma"><i class="fa-solid fa-circle-dot"></i> Rubor o temblores</span>
+                    <span class="sintoma"><i class="fa-solid fa-circle-dot"></i> Miedo a ser juzgado</span>
+                    <span class="sintoma"><i class="fa-solid fa-circle-dot"></i> Dificultad para hacer amigos</span>
+                    <span class="sintoma"><i class="fa-solid fa-circle-dot"></i> Aislamiento social</span>
+                </div>
+
+                <h4><i class="fa-solid fa-lightbulb"></i> ¿Qué puedes hacer?</h4>
+                <p>La terapia cognitivo-conductual (TCC) es muy efectiva. También ayuda la exposición gradual a situaciones sociales y el desarrollo de habilidades de comunicación.</p>
+
+                <div class="fuente-link">
+                    <i class="fa-solid fa-link"></i>
+                    <a href="https://www.psychiatry.org/patients-families/anxiety-disorders/what-are-anxiety-disorders" target="_blank">APA (2022) — Trastornos de ansiedad</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- DEPRESIÓN -->
+        <div class="info-card-full">
+            <div class="info-card-header depresion-color">
+                <i class="fa-solid fa-cloud-rain fa-2x"></i>
+                <div>
+                    <h2>Depresión</h2>
+                    <p>Trastorno del estado de ánimo</p>
+                </div>
+            </div>
+            <div class="info-card-body">
+                <p>La depresión es un trastorno mental frecuente que afecta el estado de ánimo, el pensamiento y el comportamiento. No se trata solo de tristeza pasajera, sino de una condición que puede interferir significativamente en la vida diaria.</p>
+
+                <h4><i class="fa-solid fa-list-check"></i> Síntomas comunes</h4>
+                <div class="sintomas-grid">
+                    <span class="sintoma"><i class="fa-solid fa-circle-dot"></i> Tristeza persistente</span>
+                    <span class="sintoma"><i class="fa-solid fa-circle-dot"></i> Pérdida de interés</span>
+                    <span class="sintoma"><i class="fa-solid fa-circle-dot"></i> Fatiga constante</span>
+                    <span class="sintoma"><i class="fa-solid fa-circle-dot"></i> Cambios en el sueño</span>
+                    <span class="sintoma"><i class="fa-solid fa-circle-dot"></i> Sentimientos de culpa</span>
+                    <span class="sintoma"><i class="fa-solid fa-circle-dot"></i> Dificultad para concentrarse</span>
+                </div>
+
+                <h4><i class="fa-solid fa-lightbulb"></i> ¿Qué puedes hacer?</h4>
+                <p>Buscar apoyo profesional es fundamental. La psicoterapia, el ejercicio, mantener rutinas y el apoyo social son pilares clave en la recuperación.</p>
+
+                <div class="fuente-link">
+                    <i class="fa-solid fa-link"></i>
+                    <a href="https://www.who.int/es/news-room/fact-sheets/detail/depression" target="_blank">OMS (2023) — Depresión</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- SOLEDAD -->
+        <div class="info-card-full">
+            <div class="info-card-header soledad-color">
+                <i class="fa-solid fa-user fa-2x"></i>
+                <div>
+                    <h2>Soledad</h2>
+                    <p>Aislamiento emocional y social</p>
+                </div>
+            </div>
+            <div class="info-card-body">
+                <p>La soledad es una experiencia subjetiva de aislamiento social o emocional. No siempre está relacionada con estar físicamente solo, sino con la percepción de falta de conexión significativa con otros.</p>
+
+                <h4><i class="fa-solid fa-list-check"></i> Señales de alerta</h4>
+                <div class="sintomas-grid">
+                    <span class="sintoma"><i class="fa-solid fa-circle-dot"></i> Sensación de vacío</span>
+                    <span class="sintoma"><i class="fa-solid fa-circle-dot"></i> Falta de pertenencia</span>
+                    <span class="sintoma"><i class="fa-solid fa-circle-dot"></i> Dificultad para conectar</span>
+                    <span class="sintoma"><i class="fa-solid fa-circle-dot"></i> Tristeza sin causa aparente</span>
+                    <span class="sintoma"><i class="fa-solid fa-circle-dot"></i> Bajo autoestima</span>
+                    <span class="sintoma"><i class="fa-solid fa-circle-dot"></i> Retraimiento social</span>
+                </div>
+
+                <h4><i class="fa-solid fa-lightbulb"></i> ¿Qué puedes hacer?</h4>
+                <p>Unirte a grupos de interés, practicar actividades sociales, buscar voluntariado y no dudar en pedir apoyo profesional si la soledad se vuelve crónica.</p>
+
+                <div class="fuente-link">
+                    <i class="fa-solid fa-link"></i>
+                    <a href="https://www.who.int/es/health-topics/mental-health" target="_blank">OMS — Salud Mental</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- HABILIDADES SOCIALES -->
+        <div class="info-card-full">
+            <div class="info-card-header habilidades-color">
+                <i class="fa-solid fa-handshake fa-2x"></i>
+                <div>
+                    <h2>Habilidades Sociales</h2>
+                    <p>Herramientas para relacionarse mejor</p>
+                </div>
+            </div>
+            <div class="info-card-body">
+                <p>Las habilidades sociales son comportamientos aprendidos que nos permiten interactuar efectivamente con otras personas. Se pueden desarrollar y mejorar con práctica y orientación.</p>
+
+                <h4><i class="fa-solid fa-list-check"></i> Habilidades clave</h4>
+                <div class="sintomas-grid">
+                    <span class="sintoma"><i class="fa-solid fa-circle-dot"></i> Escucha activa</span>
+                    <span class="sintoma"><i class="fa-solid fa-circle-dot"></i> Comunicación asertiva</span>
+                    <span class="sintoma"><i class="fa-solid fa-circle-dot"></i> Empatía</span>
+                    <span class="sintoma"><i class="fa-solid fa-circle-dot"></i> Manejo de conflictos</span>
+                    <span class="sintoma"><i class="fa-solid fa-circle-dot"></i> Lenguaje corporal</span>
+                    <span class="sintoma"><i class="fa-solid fa-circle-dot"></i> Trabajo en equipo</span>
+                </div>
+
+                <h4><i class="fa-solid fa-lightbulb"></i> ¿Cómo mejorarlas?</h4>
+                <p>Practica conversaciones, únete a grupos sociales, toma cursos de comunicación y no temas cometer errores. Las habilidades sociales mejoran con la experiencia.</p>
+
+                <div class="fuente-link">
+                    <i class="fa-solid fa-link"></i>
+                    <a href="https://www.psychiatry.org" target="_blank">American Psychiatric Association</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="info-sidebar">
+
+        <div class="sidebar-card">
+            <h3><i class="fa-solid fa-phone"></i> Líneas de Ayuda</h3>
+            <div class="linea-ayuda">
+                <span class="linea-num">106</span>
+                <p>Línea de apoyo emocional gratuita 24/7</p>
+            </div>
+            <div class="linea-ayuda">
+                <span class="linea-num">192</span>
+                <p>Ministerio de Salud Colombia</p>
+            </div>
+        </div>
+
+        <div class="sidebar-card">
+            <h3><i class="fa-solid fa-circle-info"></i> ¿Sabías que?</h3>
+            <ul class="datos-list">
+                <li>1 de cada 8 personas en el mundo vive con un trastorno mental.</li>
+                <li>La ansiedad es el trastorno mental más común a nivel global.</li>
+                <li>Pedir ayuda es el primer paso hacia la recuperación.</li>
+                <li>Los trastornos mentales tienen tratamiento efectivo.</li>
+            </ul>
+        </div>
+
+        <div class="sidebar-card">
+            <h3><i class="fa-solid fa-arrow-right"></i> Explora más</h3>
+            <div class="explore-links">
+                <a href="/recursos">
+                    <i class="fa-solid fa-video"></i> Ver videos de apoyo
+                </a>
+                <a href="/tests">
+                    <i class="fa-solid fa-clipboard-check"></i> Hacer autoevaluación
+                </a>
+                <a href="/foro">
+                    <i class="fa-solid fa-comments"></i> Ir al foro
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2026 RAPS - Proyecto Académico</p>
+</footer>
+
+<script>
+function toggleMenu() {
+    const nav = document.querySelector('.nav-links');
+    nav.classList.toggle('open');
+}
+</script>
+
+</body>
+</html>
